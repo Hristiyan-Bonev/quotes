@@ -1,0 +1,16 @@
+.carousel-caption {
+  bottom:0;
+  top:60%;
+}
+
+.carousel-text{
+  font-size: 2.69vw;
+  color:white;
+  font-weight:900;
+  font-family: 'Roboto Slab', serif;
+}
+
+.carousel-text-author {
+  font-size: 1.65vw !important;
+  text-align: right
+}

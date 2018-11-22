@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from quotes_project.views import IndexView
+from quotes_project.views import IndexView, CategoryView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', IndexView.as_view(), name="index"),
+    url(r'^category/(?P<category>[-\w]+)/$', CategoryView.as_view(), name="category"),
 ]

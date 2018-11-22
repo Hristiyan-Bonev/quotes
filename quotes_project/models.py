@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Authors(models.Model):
+class Author(models.Model):
     author_id = models.IntegerField(primary_key=True)
     author = models.TextField(unique=True)
 
@@ -13,7 +13,7 @@ class Authors(models.Model):
         db_table = 'authors'
 
 
-class Categories(models.Model):
+class Category(models.Model):
     category_id = models.IntegerField(primary_key=True)
     category = models.TextField(unique=True)
 
@@ -25,11 +25,11 @@ class Categories(models.Model):
         db_table = 'categories'
 
 
-class QuoteData(models.Model):
+class Quote(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
     quote_text = models.TextField()
-    author = models.ForeignKey(Authors, models.DO_NOTHING)
-    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, db_column='category')
     scraped_date = models.TextField()
     is_favourite = models.IntegerField()
     was_qod = models.IntegerField()

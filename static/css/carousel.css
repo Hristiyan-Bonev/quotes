@@ -1,6 +1,6 @@
 .carousel-caption {
   bottom:0;
-  top:60%;
+  top:45%;
 }
 
 .carousel-text{
@@ -14,3 +14,12 @@
   font-size: 1.65vw !important;
   text-align: right
 }
+
+.card-text-custom{
+      color:white;
+      font-size: 25px;
+      font-weight: 900;
+      position: relative;
+      top: 45%;
+      left: 45%;
+  }

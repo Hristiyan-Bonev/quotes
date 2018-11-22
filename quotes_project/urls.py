@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from quotes_project.views import IndexView, CategoryView
+from quotes_project.views import IndexView, CategoryView, CategoriesList, AuthorsList
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
-    url(r'^category/(?P<category>[-\w]+)/$', CategoryView.as_view(), name="category"),
+    url(r'^categories/(?P<category>[-\w]+)/$', CategoryView.as_view(), name="category"),
+    url(r'^categories/$', CategoriesList.as_view(), name="categories"),
+    url(r'^authors/$', AuthorsList.as_view(), name="authors"),
 ]

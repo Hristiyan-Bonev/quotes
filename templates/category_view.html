@@ -2,22 +2,27 @@
 {% load static %}
 
 {% block content %}
+
 <link rel="stylesheet" href="{% static '/css/card.css' %}">
 
-<h1> Quotes for {{ category }} </h1>
-
 <div class="container">
-{% for quote in category %}
-  <div class="row">
-    <div class="col-3"></div>
-    <div class="card col-6">
-        <img class="card-img" src="{% static 'wallpapers/4.jpg' %}" alt="Card image">
-        <div class="card-img-overlay">
-            <p class="card-text">{{quote}}</p>
+    {% for category in category %}
+        <div class="category-title">
+            <h1> Category: {{ category.category | title }} </h1>
         </div>
-  </div>
-  <div class="col-3"></div>
-</div>
-{% endfor %}
+    {% endfor %}
+    {% for quote in quotes %}
+      <div class="row">
+        <div class="card">
+            <img class="card-img" src="{% static 'wallpapers/' %}{{ image_no|random }}.jpg" alt="Card image">
+            <div class="card-img-overlay">
+                <div class="card-text-wrapper">
+                  <p class="card-text">{{quote}}</p>
+                  <p class="card-text card-align-right card-text-author">{{quote.author}}</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    {% endfor %}
 </div>
 {% endblock content %}

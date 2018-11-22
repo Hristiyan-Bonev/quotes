@@ -1,11 +1,9 @@
-.card{
+body { padding-top: 55px; }
+
+.categories-count{
   border:2px solid black;
-  border-radius: 10px;
-  margin-top: 25px;
-  margin: 0 auto; /* Added */
-  float: none; /* Added */
-  margin-bottom: 10px; /* Added */
-  width: 50%;
+  font-size: 45px;
+  text-align: center;
 }
 
 .card-text{
@@ -13,10 +11,6 @@
   color:white;
   font-weight:900;
   font-family: 'Roboto Slab', serif;
-}
-
-.card-text-author {
-  font-size: 1vw !important;
 }
 
 .category-title{
@@ -35,6 +29,8 @@
 }
 
 .card-text-wrapper{
+font-size: 2vw;
+text-align: center;
 position: relative;
 top: 50%;
 transform: translateY(-50%);

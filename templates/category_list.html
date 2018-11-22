@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/category_list.css' %}">
+<div class="container">
+
+
+<div class="categories-header">
+  <div class="categories-count">
+    Found {{ categories_count }} categories
+  </div>
+</div>
+
+  <div class="card-deck">
+  {% for category in categories %}
+    <div class="card" style="border:3px solid black; margin-top:2%;" >
+      <a href="/categories/{{category}}">
+      <img class="card-img" src="{% static '/wallpapers/2.jpg' %}" alt="Card image">
+      <div class="card-img-overlay">
+          <div class="card-text-wrapper">
+              <p class="card-text">{{category | title}}</p>
+          </div>
+      </div>
+    </div>
+  </a>
+    {% if forloop.counter|divisibleby:"3" %}
+      </div>
+      <div class="card-deck">
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
+{% endblock content %}

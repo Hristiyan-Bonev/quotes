@@ -84,7 +84,7 @@ class AuthorDetails(DetailView):
     template_name = 'authors_details.html'
 
     def get_queryset(self):
-        self.author = Author.objects.filter(pk=self.kwargs['author_id'])
+        self.author = Author.objects.filter(author_id=self.kwargs['author_id'])
         self.author_quotes = Quote.objects.filter(author__author_id__contains=self.kwargs['author_id'])
         return self.author_quotes
 

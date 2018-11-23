@@ -5,32 +5,34 @@
 {% block content %}
 <link rel="stylesheet" href="{% static '/css/category_list.css' %}">
 <div class="container">
-
-
-<div class="categories-header">
-  <div class="categories-count">
-    Found {{ authors_count }} authors
-  </div>
-</div>
-
-<div id="accordion">
-  {% for letter,author in authors.items %}
-  <div class="card">
-  <div class="card-header" id="headingOne">
-    <h5 class="mb-0">
-      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{letter}}" aria-expanded="true" aria-controls="collapse{{letter}}">
-        {{ letter | title }}
-      </button>
-    </h5>
-  </div>
-  <div id="collapse{{letter}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-    {% for author in author %}
-    <div class="card-body">{{ author }}</div>
-    {% endfor %}
-  </div>
-  {% endfor %}
-</div>
-</div>
-
+    <div class="categories-header">
+      <div class="categories-count">
+        Found {{ authors_count }} authors
+      </div>
+    </div>
+    <div id="accordion">
+      {% for letter,authors in authors.items %}
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{letter}}" aria-expanded="true" aria-controls="collapse{{letter}}">
+              {{ letter | title }}
+            </button>
+          </h5>
+        </div>
+        <div id="collapse{{letter}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-deck">
+            {% for author in authors %}
+              <div class="card-body custom-card" style="text-align:center;"><a href="/authors/{{ author.1 }}/">{{ author.0 }}</a></div>
+              {% if forloop.counter|divisibleby:"5" %} <!-- 5 authors per row-->
+                  </div>
+                  <div class="card-deck">
+                  {% endif %}
+              {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
 </div>
 {% endblock content %}

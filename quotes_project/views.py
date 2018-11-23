@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from .models import Category, Author, Quote
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 import random
@@ -47,7 +47,7 @@ class CategoriesList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
-        context['categories'] = categories[:15]
+        context['categories'] = categories[:1204]
         context['categories_count'] = len(context['categories'])
         return context
 
@@ -62,18 +62,34 @@ class AuthorsList(ListView):
         # Set of alphanumeric chars only
         unique_chars = set([char.lower() for char in char_list if ord(char) < 128])
         # Get only alphabet letters
-        unique_chars = [char for char in unique_chars if char.isalpha()]
+        unique_chars = sorted([char for char in unique_chars if char.isalpha()])
         sorted_authors={}
 
         for char in unique_chars:
-            sorted_authors[char] = sorted([x.author for x in authors if x.author[0].lower() == char])
-
-
+            # Create dictionary with first letter as key and corresponding
+            # authors with first letter matching as values
+            sorted_authors[char] = sorted([(x.author.strip(), x.author_id)  \
+                                           for x in authors \
+                                           if x.author[0].lower() == char \
+                                           and len(x.author) < 15])
 
         # import ipdb; ipdb.set_trace()
+        context['authors'] = sorted_authors
+        context['authors_count'] = len(authors)
+        return context
 
 
-        context['authors'] = sorted(sorted_authors.keys())
+class AuthorDetails(DetailView):
+    model=Author
+    template_name = 'authors_details.html'
 
-        context['authors_count'] = len(context['authors'])
+    def get_queryset(self):
+        self.author = Author.objects.filter(pk=self.kwargs['author_id'])
+        self.author_quotes = Quote.objects.filter(author__author_id__contains=self.kwargs['author_id'])
+        return self.author_quotes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['author'] = self.author
+        context['author_quotes'] = self.author_quotes
         return context

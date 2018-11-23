@@ -35,3 +35,7 @@ position: relative;
 top: 50%;
 transform: translateY(-50%);
 }
+
+.custom-card{
+  font-size: 1vw;
+}

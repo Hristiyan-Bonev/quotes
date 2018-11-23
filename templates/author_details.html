@@ -4,8 +4,37 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static '/css/card.css' %}">
-
-<p>
-{{author}}
-</p>
+<link rel="stylesheet" href="{% static '/css/author_details.css' %}">
+{% for author in author %}
+<div class="card" style="width:60%">
+  <div class="card-body">
+    <div class='author-image'>
+      <img src="{% static '/wallpapers/placeholder.png' %}"/>
+    </div>
+    <h4 class="card-title">{{ author.author }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">.</h6>
+    <p class="card-text card-text-black-custom">
+    Maybe we can add wikipedia reference or similar shit here
+    </p>
+  </div>
+  <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="inner-button">
+        Read quotes from {{ author | title }}
+      </div>
+</button>
+</div>
+<div class="container">
+<div id="accordion">
+  <div class="card-custom">
+    </div>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      {% for quote in author_quotes %}
+      <div class="custom-card">
+          <div class="card-body">{{quote}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock content %}

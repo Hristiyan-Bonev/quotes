@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^categories/(?P<category>[-\w]+)/$', CategoryView.as_view(), name="category"),
     url(r'^categories/$', CategoriesList.as_view(), name="categories"),
-    url(r'^authors/(?P<author_id>\d+)/$', AuthorDetails.as_view(), name='author'),
+    url(r'^authors/(?P<pk>\d+)/$', AuthorDetails.as_view(), name='author'),
     url(r'^authors/$', AuthorsList.as_view(), name="authors"),
 ]

@@ -39,3 +39,9 @@ position: relative;
 top: 50%;
 transform: translateY(-50%);
 }
+
+.card-text-black-custom{
+  font-size: 1vw;
+  color:black;
+  font-weight: 500
+}

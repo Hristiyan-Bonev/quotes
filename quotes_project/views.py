@@ -81,15 +81,17 @@ class AuthorsList(ListView):
 
 class AuthorDetails(DetailView):
     model=Author
-    template_name = 'authors_details.html'
+    template_name = 'author_details.html'
+    slug_field = 'author_id'
 
-    def get_queryset(self):
-        self.author = Author.objects.filter(author_id=self.kwargs['author_id'])
-        self.author_quotes = Quote.objects.filter(author__author_id__contains=self.kwargs['author_id'])
-        return self.author_quotes
+    # def get_queryset(self):
+    #     import ipdb; ipdb.set_trace()
+    #     return self.author_quotes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.author = Author.objects.filter(author_id=self.kwargs['pk'])
+        self.author_quotes = Quote.objects.filter(author__author_id__contains=self.kwargs['pk'])
         context['author'] = self.author
         context['author_quotes'] = self.author_quotes
         return context

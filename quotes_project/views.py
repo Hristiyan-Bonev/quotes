@@ -1,10 +1,10 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Category, Author, Quote
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 import random
-import re
+
 
 class IndexView(TemplateView):
 
@@ -82,11 +82,8 @@ class AuthorsList(ListView):
 class AuthorDetails(DetailView):
     model=Author
     template_name = 'author_details.html'
-    slug_field = 'author_id'
+    paginate_by = 5
 
-    # def get_queryset(self):
-    #     import ipdb; ipdb.set_trace()
-    #     return self.author_quotes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

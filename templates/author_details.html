@@ -17,18 +17,18 @@
     Maybe we can add wikipedia reference or similar shit here
     </p>
   </div>
-  <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+  <!-- <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
       <div class="inner-button">
         Show quotes from {{ author | title }}
       </div>
-</button>
+</button> -->
 </div>
 
 <div class="container">
 <div id="accordion">
   <div class="card-custom">
     </div>
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapseOne" class="show" aria-labelledby="headingOne" data-parent="#accordion">
       {% for quote in author_quotes %}
       <div class="custom-card">
           <div class="card-body">{{quote}}</div>

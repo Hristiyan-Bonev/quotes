@@ -22,3 +22,18 @@
       top: 45%;
       left: 45%;
   }
+
+
+.custom-list{
+  width: 13%;
+
+  border-radius: 10px;
+}
+
+.list-group > li {
+    border-bottom: 2px solid black;
+}
+
+.custom-list-header{
+  text-align: center;
+}

@@ -13,18 +13,18 @@
     <div id="accordion">
       {% for letter,authors in authors.items %}
       <div class="card">
-        <div class="card-header" id="headingOne">
+        <div class="card-header" id="heading{{letter}}">
           <h5 class="mb-0">
             <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{letter}}" aria-expanded="true" aria-controls="collapse{{letter}}">
               {{ letter | title }}
             </button>
           </h5>
         </div>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div id="collapse{{letter}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
           <div class="card-deck">
             {% for author in authors %}
               <div class="card-body custom-card" style="text-align:center;"><a href="/authors/{{ author.1 }}/">{{ author.0 }}</a></div>
-              {% if forloop.counter|divisibleby:"5" %} <!-- 5 authors per row-->
+              {% if forloop.counter|divisibleby:"6" %} <!-- 5 authors per row-->
                   </div>
                   <div class="card-deck">
                   {% endif %}

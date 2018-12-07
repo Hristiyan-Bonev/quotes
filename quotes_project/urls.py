@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from quotes_project.views import IndexView, CategoryView, CategoriesList, AuthorsList, AuthorDetails
+from quotes_project.views import (IndexView,
+                                  CategoryView,
+                                  CategoriesList,
+                                  AuthorsList,
+                                  AuthorDetails,
+                                  SignUp)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +29,5 @@ urlpatterns = [
     url(r'^categories/$', CategoriesList.as_view(), name="categories"),
     url(r'^authors/(?P<pk>\d+)/$', AuthorDetails.as_view(), name='author'),
     url(r'^authors/$', AuthorsList.as_view(), name="authors"),
+    url(r'^sign_up$', SignUp.as_view(), name="sign_up"),
 ]

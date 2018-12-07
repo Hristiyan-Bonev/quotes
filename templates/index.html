@@ -26,6 +26,24 @@
     </div> {# end of class carousel-inner#}
 </div> {# end of class carousel#}
 
+<div class="custom-list">
+  <div class="custom-list-header">
+    <h4> Category list: </h4>
+  </div>
+  {% if categories %}
+  <ul class="list-group">
+      {% for category in categories %}
+      <a href="categories/{{category.category}}">
+    <button class="list-group-item d-flex justify-content-between align-items-center">
+    {{ category.category }}
+  </button>
+</a>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+
 <div class="container">
     {% if categories %}
       <div class="card-columns">

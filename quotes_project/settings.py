@@ -26,18 +26,18 @@ SECRET_KEY = ')h!%ub)1(hsya@khklue4ajp29hmtunfoz#=6$6)&#hkm)p9&l'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = "quotes_project.DefaultUser"
 
 # Application definition
 
 INSTALLED_APPS = [
+    'quotes_project',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quotes_project'
 ]
 
 MIDDLEWARE = [
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'quotes_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+print(BASE_DIR)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

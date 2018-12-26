@@ -17,7 +17,7 @@
         {% endif %}
             <img class="d-block w-100 h-35" src='{% static "wallpapers/" %}{{ image_no }}.jpg'>
             <div class="carousel-caption">
-                <h3 class="carousel-text">{{ quote.quote_text }}</h3>
+                <h3 class="carousel-text">{{ quote.quote}}</h3>
                 <p class="carousel-text carousel-text-author">{{ quote.author }}</p>
             </div> {# end of div carousel-caption #}
         </div> {# end of class item active #}
@@ -26,22 +26,24 @@
     </div> {# end of class carousel-inner#}
 </div> {# end of class carousel#}
 
-<div class="custom-list">
-  <div class="custom-list-header">
-    <h4> Category list: </h4>
-  </div>
-  {% if categories %}
-  <ul class="list-group">
-      {% for category in categories %}
-      <a href="categories/{{category.category}}">
-    <button class="list-group-item d-flex justify-content-between align-items-center">
-    {{ category.category }}
-  </button>
-</a>
-    {% endfor %}
-  </ul>
-  {% endif %}
-</div>
+
+    <!--MENU BUTTONS-->
+<!--<div class="custom-list">-->
+  <!--<div class="custom-list-header">-->
+    <!--<h4> Category list: </h4>-->
+  <!--</div>-->
+  <!--{% if categories %}-->
+  <!--<ul class="list-group">-->
+      <!--{% for category in categories %}-->
+      <!--<a href="categories/{{category.category}}">-->
+    <!--<button class="list-group-item d-flex justify-content-between align-items-center">-->
+    <!--{{ category.category }}-->
+  <!--</button>-->
+<!--</a>-->
+    <!--{% endfor %}-->
+  <!--</ul>-->
+  <!--{% endif %}-->
+<!--</div>-->
 
 
 <div class="container">
@@ -49,10 +51,10 @@
       <div class="card-columns">
       {% for category in categories %}
       <div class="card">
-        <a href="categories/{{category.category}}">
+        <a href="categories/{{category.category_text}}">
         <img class="card-img" src="{% static "wallpapers/2.jpg" %}" alt="Card image">
         <div class="card-img-overlay">
-          <p class="card-text card-text-custom">{{ category.category }}</p>
+          <p class="card-text card-text-custom">{{ category.category_text }}</p>
         </div>
       </a>
       </div>

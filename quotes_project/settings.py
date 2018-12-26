@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'quotes_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-print(BASE_DIR)
+print(os.path.join(BASE_DIR, 'quotes_data'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

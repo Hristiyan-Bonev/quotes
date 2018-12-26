@@ -13,16 +13,16 @@ class IndexView(TemplateView):
 
     template_name = 'index.html'
     model = Quote
+    carousel_quotes = 5
 
     def get_context_data(self, **kwargs):
-
         categories = Category.objects.all().order_by('category_text')
         quotes = Quote.objects.all().order_by('category')
-        carousel_quotes = [random.choice(quotes) for _ in range(3)]
-        carousel_images = [random.randint(1, 12) for _ in range(3)]
+        carousel_quotes = [random.choice(quotes) for _ in range(self.carousel_quotes)]
+        carousel_images = [random.randint(1, 12) for _ in range(self.carousel_quotes)]
         context = super().get_context_data(**kwargs)
         context['categories'] = categories
-        context['carousel_data'] = zip(carousel_quotes, carousel_images)
+        context['carousel_data'] = list(zip(carousel_quotes, carousel_images))
         return context
 
 
@@ -33,7 +33,7 @@ class CategoryView(ListView):
     def get_queryset(self):
         self.category_id = Category.objects.filter(category_text=self.kwargs['category']).values('category_id')
         self.category_quotes = Quote.objects.all() # FILTER
-        self.category = Category.objects.filter(category=self.kwargs['category'])
+        self.category = Category.objects.filter(category_text=self.kwargs['category'])
         return self.category_quotes
 
     def get_context_data(self, **kwargs):
@@ -62,7 +62,7 @@ class AuthorsList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         authors = Author.objects.filter(author_id__lt='1000')
-        char_list = list(set([x.author[0] for x in authors]))
+        char_list = list(set([x.author_text[0] for x in authors]))
         # Set of alphanumeric chars only
         unique_chars = set([char.lower() for char in char_list if ord(char) < 128])
         # Get only alphabet letters
@@ -72,10 +72,9 @@ class AuthorsList(ListView):
         for char in unique_chars:
             # Create dictionary with first letter as key and corresponding
             # authors with first letter matching as values
-            sorted_authors[char] = sorted([(x.author.strip(), x.author_id)  \
+            sorted_authors[char] = sorted([(x.author_text.strip(), x.author_id)  \
                                            for x in authors \
-                                           if x.author[0].lower() == char \
-                                           and len(x.author) < 15])
+                                           if x.author_text[0].lower() == char])
 
         context['authors'] = sorted_authors
         context['authors_count'] = len(authors)
@@ -93,17 +92,9 @@ class AuthorDetails(DetailView):
         self.author = Author.objects.filter(author_id=self.kwargs['pk'])
         self.author_quotes = Quote.objects.filter(author__author_id__contains=self.kwargs['pk'])
         context['author'] = self.author
-        context['author_quotes'] = self.author_quotes[count:count + 50] # 0 - 50
-        # count += 50
-        # if request == 'GET':
-        #     self.get_more()
+        context['author_quotes'] = self.author_quotes
         return context
-    #
-    # def get_more(self, request):
-    #     try:
-    #         context['author_quotes'] = self.author_quotes[count:count + 50] # 50-100
-    #     except IndexError:
-    #         context['']
+
 
 class SignUp(CreateView):
     form_class = UserCreationForm

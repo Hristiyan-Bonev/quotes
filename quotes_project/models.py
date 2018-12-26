@@ -4,45 +4,39 @@ from django.contrib.auth.models import AbstractUser, UserManager
 
 class Author(models.Model):
     author_id = models.IntegerField(primary_key=True)
-    author = models.TextField(unique=True)
+    author_text = models.TextField(unique=True)
 
     def __str__(self):
-        return self.author
+        return self.author_text
 
     class Meta:
-        managed = False
         db_table = 'authors'
 
 
 class Category(models.Model):
     category_id = models.IntegerField(primary_key=True)
-    category = models.TextField(unique=True)
+    category_text = models.TextField(unique=True)
 
     def __str__(self):
-        return self.category
+        return self.category_text
 
     class Meta:
-        managed = False
         db_table = 'categories'
 
 
 class Quote(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    quote_id = models.IntegerField(primary_key=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, db_column='author')
+    quote = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, db_column='category')
-    id = models.IntegerField(primary_key=True)
-    is_favourite = models.IntegerField()
-    was_qod = models.IntegerField()
-    likes = models.IntegerField()
-    quote_text = models.TextField()
-    scraped_date = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.quote_text
+    likes = models.IntegerField(default=0)
+    date_crawled = models.DateField(auto_now_add=True)
 
     class Meta:
-        managed = False
         db_table = 'quote_data'
+
+    def __str__(self):
+        return self.quote
 
 
 class DefaultUser(AbstractUser):
@@ -56,4 +50,4 @@ class DefaultUser(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.username
+        return self.email_address

@@ -12,15 +12,15 @@ import random
 class IndexView(TemplateView):
 
     template_name = 'index.html'
-    # model = Authors
+    model = Quote
 
     def get_context_data(self, **kwargs):
-        categories = Category.objects.all().order_by('category_id')[:15]
-        quotes = Quote.objects.all().order_by('category_id')[:15]
+
+        categories = Category.objects.all().order_by('category_text')
+        quotes = Quote.objects.all().order_by('category')
         carousel_quotes = [random.choice(quotes) for _ in range(3)]
         carousel_images = [random.randint(1, 12) for _ in range(3)]
         context = super().get_context_data(**kwargs)
-        categories
         context['categories'] = categories
         context['carousel_data'] = zip(carousel_quotes, carousel_images)
         return context
@@ -31,8 +31,8 @@ class CategoryView(ListView):
     template_name = 'category_view.html'
 
     def get_queryset(self):
-        self.category_id = Category.objects.filter(category=self.kwargs['category']).values('category_id')
-        self.category_quotes = Quote.objects.filter(category__category_id__contains=self.category_id)
+        self.category_id = Category.objects.filter(category_text=self.kwargs['category']).values('category_id')
+        self.category_quotes = Quote.objects.all() # FILTER
         self.category = Category.objects.filter(category=self.kwargs['category'])
         return self.category_quotes
 
